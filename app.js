@@ -2,48 +2,20 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 //var logger = require('morgan');
-var log4js = require('log4js');
+var log = require('./lib/logHelper');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var weixin = require('./routes/weixin');
-
+var middleware = require('./lib/middleware');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
-log4js.configure({
-  appenders: [
-    { type: 'console' },{
-      type: 'file',
-      filename: 'logs/access.log',
-      maxLogSize: 1024,
-      backups:4,
-      category: 'normal'
-    }
-  ],
-  replaceConsole: true
-});
-//var logger = log4js.getLogger(name);
-//logger.setLevel('INFO');
-
-exports.logger=function(name){
-  var logger = log4js.getLogger(name);
-  logger.setLevel('INFO');
-  return logger;
-}
-
-
-app.use(log4js.connectLogger(this.logger('normal'), {level:'auto', format:':method :url'}));
-
-
-
-
-
+log.use(app);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -52,6 +24,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(middleware.extendAPIOutput);
+app.use(middleware.apiErrorHandle);
 
 app.use('/', index);
 app.use('/weixin', weixin);

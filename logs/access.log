@@ -1,8 +1,0 @@
-[2017-03-27 14:39:03.092] [INFO] normal - GET /
-[2017-03-27 14:39:03.122] [INFO] normal - GET /
-[2017-03-27 14:39:03.166] [INFO] normal - GET /stylesheets/style.css
-[2017-03-27 14:39:03.467] [ERROR] normal - GET /favicon.ico
-[2017-03-27 16:53:03.736] [ERROR] normal - GET /
-[2017-03-27 16:53:03.777] [WARN] normal - GET /stylesheets/style.css
-[2017-03-27 16:56:27.321] [ERROR] normal - GET /
-[2017-03-27 16:56:27.338] [WARN] normal - GET /stylesheets/style.css

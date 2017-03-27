@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jsSHA = require('jssha');
 var xml=require('node-xml');
-var util = require('../lib/utils');
+var middleware = require('../lib/middleware');
 /*
 <xml>
 <ToUserName><![CDATA[toUser]]></ToUserName> //开发者微信号
@@ -16,12 +16,12 @@ var util = require('../lib/utils');
 
 
 /* GET users listing. */
-router.get('/',util.authentication, function(req, res, next) {
+router.get('/', middleware.authentication, function(req, res, next) {
 
-    var post_data="";
+    var post_data = "";
     req.on("data",function(data){post_data=data;});
     req.on("end",function(){
-    var xmlStr=post_data.toString('utf-8',0,post_data.length);
+    var xmlStr = post_data.toString('utf-8', 0, post_data.length);
     //解析消息代码
 
     // 定义解析存储变量
